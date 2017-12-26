@@ -1,36 +1,29 @@
 {
-  "name": "angular-library-seed",
-  "version": "0.0.20",
-  "description": "Angular library seed",
+  "name": "ng-tag-input",
+  "version": "0.1.0",
+  "description": "Simple lightweight tag input field for angular",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "license": "MIT",
   "keywords": [
     "angular",
-    "angular4",
-    "aot",
-    "aot-compatible",
-    "aot-compilation",
-    "library",
-    "ng",
-    "seed",
-    "starter",
-    "tick-tock",
-    "typescript"
+    "tag input",
+    "badges",
+    "input",
+    "form"
   ],
   "author": {
-    "name": "Oleksii Trekhleb",
-    "url": "https://www.linkedin.com/in/trekhleb/"
+    "name": "David Diefenderfer"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/trekhleb/angular-library-seed.git"
+    "url": "https://github.com/daviddiefenderfer/ng-tag-input.git"
   },
   "bugs": {
-    "url": "https://github.com/trekhleb/angular-library-seed/issues"
+    "url": "https://github.com/daviddiefenderfer/ng-tag-input/issues"
   },
-  "homepage": "https://github.com/trekhleb/angular-library-seed#readme",
+  "homepage": "https://github.com/daviddiefenderfer/ng-tag-input#readme",
   "scripts": {
     "build": "npm run build:esm && npm run build:umd",
     "build:esm": "gulp inline-templates && npm run ngcompile",
@@ -59,13 +52,15 @@
   "dependencies": {},
   "peerDependencies": {
     "@angular/common": "^4.0.0",
-    "@angular/core": "^4.0.0"
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0"
   },
   "devDependencies": {
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@compodoc/compodoc": "^1.0.0-beta.9",

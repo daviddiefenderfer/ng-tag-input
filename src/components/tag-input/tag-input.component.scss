@@ -1,0 +1,57 @@
+.tags-container {
+  border: 1px solid #ccc;
+  display: flex;
+  padding: 8px;
+  position: relative;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  border-radius: 15px;
+  flex-shrink: 0;
+  font-size: 14px;
+  margin: 4px;
+  padding: 6px 16px;
+}
+
+.tag-input {
+  border: none;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+.tag-input:focus {
+  outline: none;
+}
+
+.remove-tag {
+  cursor: pointer;
+}
+
+.autocomplete {
+  border: 1px solid #ccc;
+  left: -1px;
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  transform: translateY(100%);
+}
+
+.autocomplete-item {
+  background-color: white;
+  padding: 8px;
+  transition: all .1s;
+}
+
+.autocomplete-item:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.autocomplete-item:hover {
+  background-color: #f15951;
+  color: #ffffff;
+}
