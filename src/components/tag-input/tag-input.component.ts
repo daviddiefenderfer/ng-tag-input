@@ -106,7 +106,7 @@ export class TagInputComponent {
   private handleTab(event: any) {
     event.preventDefault();
 
-    if (!this.autocomplete.length) {
+    if (!this.autocomplete || !this.autocomplete.length) {
       this.addTag(event.target.value);
       return;
     }
@@ -121,7 +121,7 @@ export class TagInputComponent {
   }
 
   private checkValueAndAddTag(event: any) {
-    if (this.autocomplete.length && this.autocompleteName === event.target.value) {
+    if (this.autocomplete && this.autocomplete.length && this.autocompleteName === event.target.value) {
       this.addTag(this.autocomplete[0]);
       return;
     }
