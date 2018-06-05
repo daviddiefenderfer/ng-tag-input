@@ -18,6 +18,10 @@
   padding: 6px 16px;
 }
 
+.selected-tag {
+  filter: brightness(110%);
+}
+
 .tag-input {
   border: none;
   font-size: 14px;
@@ -39,6 +43,7 @@
   right: -1px;
   bottom: 0;
   transform: translateY(100%);
+  z-index: 2;
 }
 
 .autocomplete-item {

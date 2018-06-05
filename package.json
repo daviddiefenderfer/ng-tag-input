@@ -1,6 +1,6 @@
 {
   "name": "ng-tag-input",
-  "version": "0.1.0",
+  "version": "0.1.8",
   "description": "Simple lightweight tag input field for angular",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.js",
@@ -43,13 +43,12 @@
     "postversion": "git push && git push --tags",
     "prebuild": "rimraf dist tmp",
     "prebuild:watch": "rimraf dist tmp",
-    "prepublishOnly": "npm run ci",
+    "prepublishOnly": "npm run build",
     "preversion": "npm run ci",
     "test": "karma start",
     "test:watch": "karma start --auto-watch --no-single-run",
     "tslint": "tslint"
   },
-  "dependencies": {},
   "peerDependencies": {
     "@angular/common": "^4.0.0",
     "@angular/core": "^4.0.0",

@@ -1,9 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
-export interface AdKeyboardEvent extends KeyboardEvent {
-  target: HTMLInputElement;
-}
-
 const KEYS = {
   COMMA: 188,
   ENTER: 13,
@@ -11,16 +7,23 @@ const KEYS = {
   TAB: 9
 };
 
+export interface TagInputEvent {
+  item: any;
+  list: any[];
+}
+
 @Component({
   selector: 'app-tag-input',
   templateUrl: './tag-input.component.html',
-  styleUrls: ['./tag-input.component.scss']
+  styleUrls: ['./tag-input.component.css']
 })
 export class TagInputComponent {
 
   // Data
-  @Input() public list: string[];
-  @Input() public autocomplete: string[];
+  @Input() public list: any[];
+  @Input() public listKey: string;
+  @Input() public autocomplete: any[];
+  @Input() public autocompleteKey: string;
   @Input() public maxSuggestions = 5;
 
   // Styles
@@ -28,13 +31,23 @@ export class TagInputComponent {
   @Input() public badgeBgColor = '#5095e5';
 
   // Events
-  @Output() public tagAdded = new EventEmitter();
-  @Output() public tagRemoved = new EventEmitter();
-  @Output() public inputChanged = new EventEmitter();
+  @Output() public tagAdded = new EventEmitter<TagInputEvent>();
+  @Output() public tagRemoved = new EventEmitter<TagInputEvent>();
+  @Output() public inputChanged = new EventEmitter<string>();
 
   @ViewChild('input') public inputField: ElementRef;
+  @ViewChild('tags') public tagsEl: ElementRef;
 
-  public checkKeyEvent(event: AdKeyboardEvent) {
+  private get autocompleteName() {
+    return this.autocomplete[0][this.autocompleteKey] || this.autocomplete[0];
+  }
+
+  private get lastTag(): HTMLElement {
+    return [].slice.call(this.tagsEl.nativeElement.getElementsByClassName('tag'))
+      .pop() as HTMLElement;
+  }
+
+  public checkKeyEvent(event: any) {
     switch (event.keyCode) {
       case KEYS['COMMA']:
         event.preventDefault();
@@ -47,21 +60,25 @@ export class TagInputComponent {
         if (!event.target.value) {
           this.removeLastTag();
         }
+
         break;
       case KEYS['TAB']:
         if (!event.target.value) {
           break;
         }
+
         this.handleTab(event);
         break;
     }
   }
 
-  public addTag(event: string | AdKeyboardEvent) {
-    const value = (typeof event === 'string' ? event : event.target.value);
+  public addTag(tag: any) {
+    if (this.lastTag) {
+      this.lastTag.classList.remove('selected-tag');
+    }
 
-    this.list.push(this.capitalize(value));
-    this.tagAdded.emit({ item: this.capitalize(value), list: this.list });
+    this.list.push(tag);
+    this.tagAdded.emit({ item: tag, list: this.list });
     this.inputField.nativeElement.value = '';
   }
 
@@ -71,23 +88,46 @@ export class TagInputComponent {
   }
 
   public removeLastTag() {
-    this.list.pop();
-  }
+    if (!this.lastTag) {
+      return;
+    }
 
-  private handleTab(event: AdKeyboardEvent) {
-    event.preventDefault();
-    event.target.value = this.autocomplete[0] || event.target.value;
-  }
-
-  private checkValueAndAddTag(event: AdKeyboardEvent) {
-    if (event.target.value) {
-      this.addTag(event as AdKeyboardEvent);
+    if (this.lastTag.classList.contains('selected-tag')) {
+      this.list.pop();
+    } else {
+      this.lastTag.classList.add('selected-tag');
     }
   }
 
-  private capitalize(value: string) {
-    return value[0].toUpperCase() + value.split('')
-      .slice(1, value.length)
-      .join('');
+  public hasValues(array: any[]) {
+    return array.filter(((i: any) => i));
+  }
+
+  private handleTab(event: any) {
+    event.preventDefault();
+
+    if (!this.autocomplete.length) {
+      this.addTag(event.target.value);
+      return;
+    }
+
+    if (this.autocompleteName === event.target.value) {
+      this.addTag(this.autocomplete[0]);
+    } else {
+      event.target.value = this.autocompleteName;
+    }
+
+    return;
+  }
+
+  private checkValueAndAddTag(event: any) {
+    if (this.autocomplete.length && this.autocompleteName === event.target.value) {
+      this.addTag(this.autocomplete[0]);
+      return;
+    }
+
+    if (event.target.value) {
+      this.addTag(event.target.value);
+    }
   }
 }

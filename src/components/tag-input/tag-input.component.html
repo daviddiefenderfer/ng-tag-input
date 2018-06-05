@@ -1,10 +1,10 @@
 <div class="tags-container" (click)="input.focus()">
-  <div class="tags">
+  <div #tags class="tags">
     <div class="tag"
          [style.backgroundColor]="badgeBgColor"
          [style.color]="badgeColor"
-         *ngFor="let item of list; let i = index">
-      {{ item }}
+         *ngFor="let item of hasValues(list); let i = index">
+      {{ item[listKey] || item }}
       <span class="remove-tag" (click)="removeTag(i)">x</span>
     </div>
     <input #input class="tag-input"
@@ -16,6 +16,6 @@
   <div class="autocomplete" *ngIf="autocomplete?.length && input.value">
     <div class="autocomplete-item"
          *ngFor="let item of autocomplete.slice(0,maxSuggestions)"
-         (click)="addTag(item)">{{ item }}</div>
+         (click)="addTag(item)">{{ item[autocompleteKey] || item }}</div>
   </div>
 </div>
