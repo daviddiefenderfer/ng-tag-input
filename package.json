@@ -1,6 +1,6 @@
 {
   "name": "ng-tag-input",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Simple lightweight tag input field for angular",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.js",

@@ -10,7 +10,7 @@
     <input #input class="tag-input"
            type="text"
            placeholder="Start typing"
-           (keyup)="inputChanged.emit(input.value, list)"
+           (keyup)="inputChanged.emit(input.value)"
            (keydown)="checkKeyEvent($event)">
   </div>
   <div class="autocomplete" *ngIf="autocomplete?.length && input.value">
